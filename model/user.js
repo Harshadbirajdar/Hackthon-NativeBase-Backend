@@ -3,6 +3,8 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const { ObjectId } = mongoose.Schema.Types;
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -30,6 +32,16 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  card: {
+    type: ObjectId,
+    ref: "Card",
+  },
+  shareCard: [
+    {
+      type: ObjectId,
+      ref: "Card",
+    },
+  ],
 });
 
 userSchema.pre("save", async function (next) {
