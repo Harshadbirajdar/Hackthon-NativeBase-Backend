@@ -38,8 +38,33 @@ exports.getAllSharedCards = BigPromise(async (req, res, next) => {
     .populate("shareCard")
     .select("shareCard")
     .exec();
-
-  return res.status(200).json(user.shareCard);
+  let allCard = [];
+  user.shareCard.map((card, index) => {
+    let object = {};
+    object.type = index % 2 === 0 ? "business" : "personal";
+    object.name = card.businessName;
+    object.logo = card.logo;
+    object.imgUrl = "";
+    object.details = {
+      email: {
+        value: card.email,
+        show: true,
+      },
+      phoneNo: {
+        value: card.phoneNumber,
+        show: true,
+      },
+      website: {
+        value: card.website,
+        show: true,
+      },
+    };
+    object.address = card.address;
+    object.ownerId = card._id;
+    object.versionNo = 0;
+    allCard.push(object);
+  });
+  return res.status(200).json(allCard);
 });
 
 exports.addCardInShareCard = BigPromise(async (req, res, next) => {

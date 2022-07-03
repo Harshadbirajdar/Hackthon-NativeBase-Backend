@@ -18,6 +18,7 @@ const cardSchema = new mongoose.Schema(
     cardFrontImg: String,
     cardBackImg: String,
     templateId: Number,
+    phoneNumber: Number,
   },
   {
     timestamps: true,
