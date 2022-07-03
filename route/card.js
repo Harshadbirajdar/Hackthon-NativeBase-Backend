@@ -12,5 +12,5 @@ router
   .post(isLoggedIn, addCard)
   .get(isLoggedIn, getAllSharedCards);
 
-router.route("/share/card").post(isLoggedIn, addCardInShareCard);
+router.route("/card/scan").post(isLoggedIn, addCardInShareCard);
 module.exports = router;
